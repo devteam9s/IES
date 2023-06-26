@@ -39,21 +39,33 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
         children: [
           CircularRevealAnimation(
             animation: animation,
-            child: const Center(
-              child: CircleAvatar(
-                backgroundImage: AssetImage("assets/temp_splash_logo.jpg"),
-                radius: 125,
-              ),
+            child: Center(
+              child:Container(
+                height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(200))
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset("assets/Soukhya_logo.png"),
+                  )),
+
+              // CircleAvatar(
+              //   backgroundImage: AssetImage("assets/temp_splash_logo.jpg"),
+              //   radius: 125,
+              // ),
             ),
           ),
-          const SizedBox(height: 15),
-          TweenAnimationBuilder(
-              tween: Tween<double>(begin: 1,end: 25),
-              duration: Duration(seconds: 2),
-              builder:(context,double value, child) {
-                return Text("IES ",style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),);
-              },
-          )
+          // const SizedBox(height: 15),
+          // TweenAnimationBuilder(
+          //     tween: Tween<double>(begin: 1,end: 25),
+          //     duration: Duration(seconds: 2),
+          //     builder:(context,double value, child) {
+          //       return Text("IES ",style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),);
+          //     },
+          // )
         ],
       )
       );
