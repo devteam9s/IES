@@ -227,7 +227,6 @@ class _HomeState extends State<Home> {
           ),
         ));
   }
-
   Widget adminDashBoard(width) {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
