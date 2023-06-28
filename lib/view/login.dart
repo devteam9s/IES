@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 100,),
+              SizedBox(height: width*0.35,),
               SizedBox(
                 width: width*0.3,
                 height: width*0.3,
@@ -142,8 +142,8 @@ class _LoginState extends State<Login> {
                   Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder:(context) => const Home(),), (route) => false);
                 }
               },),
-              const SizedBox(height: 15,),
-              AuthButton(title: 'SIGN UP', onPress: () {},),
+              // const SizedBox(height: 15,),
+              // AuthButton(title: 'SIGN UP', onPress: () {},),
             ],
           ),
         ),

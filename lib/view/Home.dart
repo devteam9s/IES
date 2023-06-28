@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ies_flutter_application/view/sensor_list.dart';
+import 'package:ies_flutter_application/view/device_list.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 import '../res/colors.dart';
@@ -15,30 +15,63 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  bool isAdmin = true;
-
+  bool isAdmin = false;
+  int _index=0;
   @override
   Widget build(BuildContext context) {
     final width= MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: CustomColors.appThemeColor,
       appBar: AppBar(
-        backgroundColor: CustomColors.appThemeColor,
-        elevation: 0,
-        title: const Text("DASH BOARD"),
-        centerTitle: true,
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(1),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Divider(
-              color: Colors.white,
-              height: 1,
-            ),
+        leading:Container(
+          margin: const EdgeInsets.only(left: 20),
+          child: CircleAvatar(
+            backgroundColor: CustomColors.appThemeColor,
+            child: _index==0?const Icon(Icons.home,color: Colors.white,):_index==1?const Icon(Icons.settings,color: Colors.white):Icon(Icons.report,color: Colors.white),
           ),
         ),
+        actions: [
+          InkWell(
+            onTap: (){},
+              child: const Icon(Icons.notifications,)),
+          const SizedBox(width: 11,),
+          InkWell(
+              onTap: (){},
+              child: const Icon(Icons.help_outline,)),
+          const SizedBox(width: 20,),
+        ],
+        backgroundColor: CustomColors.appBarColor,
+        elevation: 5,
+        shadowColor: Colors.black54,
+        title:  _index==0?const Text("Home"):_index==1?const Text("Devices"):const Text("Reports"),
       ),
-      body:isAdmin?adminDashBoard(width):userDashBoard(width)
+      body:_index==0?userDashBoard(width):_index==1?DeviceList():null,
+      bottomNavigationBar: BottomNavigationBar(
+        unselectedItemColor: Colors.white70,
+        selectedItemColor: Colors.white,
+        items:const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+            label: "Home"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "Devices",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.report),
+              label: "Reports"
+          ),
+        ],
+        currentIndex: _index,
+        onTap: (value){
+          setState(() {
+            _index=value;
+          });
+        },
+        backgroundColor: CustomColors.appBarColor,
+        elevation: 10,
+      ),
     );
   }
 
@@ -49,79 +82,69 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(5.0),
                 child: SizedBox(
                   width: double.infinity,
-                  child:Text(
-                    "Hello User ,\nWelcome to IES Mobile App",
-                    style: GoogleFonts.roboto(fontSize: 20, color: Colors.blueGrey[200],fontWeight:FontWeight.w300),
-                  ),
+                  // child:Text(
+                  //   "Hello User ,\nWelcome to IES Mobile App",
+                  //   style: GoogleFonts.roboto(fontSize: 20, color: Colors.blueGrey[200],fontWeight:FontWeight.w300),
+                  // ),
                 ),
               ),
-              InkWell(
-                onTap: (){
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => const SensorList(),));
-                },
-                child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  width: double.infinity,
-                  height: width*0.5,
-                  decoration: const BoxDecoration(
-                      color: CustomColors.cardColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CircleAvatar(radius: 40,child: Icon(Icons.sensors,size: 40,),),
-                      const SizedBox(height: 10,),
-                      Container(
-                        child: Text("20",
-                          style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:Container(
-                          child:Text(
-                            "No. of sensors ",
-                            style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),
-                          ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                width: double.infinity,
+                height: width*0.5,
+                decoration: const BoxDecoration(
+                    color: CustomColors.cardColor,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircleAvatar(radius: 40,child: Icon(Icons.sensors,size: 40,),),
+                    const SizedBox(height: 10,),
+                    Container(
+                      child: Text("20",
+                        style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child:Container(
+                        child:Text(
+                          "No. of sensors ",
+                          style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              InkWell(
-                onTap: (){
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => const SensorList(),));
-                },
-                child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  width: double.infinity,
-                  height: width*0.5,
-                  decoration: const BoxDecoration(
-                      color: CustomColors.cardColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CircleAvatar(radius: 40,child: Icon(Icons.device_unknown,size: 40,),),
-                      const SizedBox(height: 10,),
-                      Container(
-                        child: Text("11",  style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:Container(
-                          child:Text(
-                            "Active Devices ",
-                            style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),
-                          ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                width: double.infinity,
+                height: width*0.5,
+                decoration: const BoxDecoration(
+                    color: CustomColors.cardColor,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircleAvatar(radius: 40,child: Icon(Icons.device_unknown,size: 40,),),
+                    const SizedBox(height: 10,),
+                    Container(
+                      child: Text("11",  style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child:Container(
+                        child:Text(
+                          "Active Systems ",
+                          style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Container(
@@ -244,69 +267,59 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: (){
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => const CustomerList(),));
-                },
-                child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  width: double.infinity,
-                  height: width*0.5,
-                  decoration: const BoxDecoration(
-                      color: CustomColors.cardColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CircleAvatar(radius: 40,child: Icon(Icons.people,size: 40,),),
-                      const SizedBox(height: 10,),
-                      Container(
-                        child: Text("22",
-                          style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:Container(
-                          child:Text(
-                            "Total No. of customers",
-                            style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),
-                          ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                width: double.infinity,
+                height: width*0.5,
+                decoration: const BoxDecoration(
+                    color: CustomColors.cardColor,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircleAvatar(radius: 40,child: Icon(Icons.people,size: 40,),),
+                    const SizedBox(height: 10,),
+                    Container(
+                      child: Text("22",
+                        style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child:Container(
+                        child:Text(
+                          "Total No. of customers",
+                          style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              InkWell(
-                onTap: (){
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => const CustomerList(),));
-                },
-                child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  width: double.infinity,
-                  height: width*0.5,
-                  decoration: const BoxDecoration(
-                      color: CustomColors.cardColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CircleAvatar(radius: 40,child: Icon(Icons.people,size: 40),backgroundColor: Colors.green),
-                      const SizedBox(height: 10,),
-                      Container(
-                        child: Text("15",  style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:Container(
-                          child:Text(
-                            "Active Customers ",
-                            style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),
-                          ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                width: double.infinity,
+                height: width*0.5,
+                decoration: const BoxDecoration(
+                    color: CustomColors.cardColor,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircleAvatar(radius: 40,child: Icon(Icons.people,size: 40),backgroundColor: Colors.green),
+                    const SizedBox(height: 10,),
+                    Container(
+                      child: Text("15",  style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child:Container(
+                        child:Text(
+                          "Active Customers ",
+                          style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -32,54 +32,60 @@ class _SensorDetailsState extends State<SensorDetails> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SfCartesianChart(
+      body: WillPopScope(
+        onWillPop: () async {
+          Navigator.pop(context);
+          return false;
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SfCartesianChart(
+                  // Initialize category axis
+                  title: ChartTitle(text: "Voltage",textStyle: TextStyle(color: Colors.white)),
+                  primaryXAxis: CategoryAxis(),
+                  series: [
+                    LineSeries<VoltageData, String>(
+                      // Bind data source
+                        dataSource:  <VoltageData>[
+                          VoltageData('Jan', 35),
+                          VoltageData('Feb', 28),
+                          VoltageData('Mar', 34),
+                          VoltageData('Apr', 32),
+                          VoltageData('May', 40),
+                          VoltageData('jun', 38)
+
+                        ],
+                        xValueMapper: (VoltageData volt, _) => volt.year,
+                        yValueMapper: (VoltageData volts, _) => volts.volts,
+                      color: Colors.white
+                    ),
+                  ]
+              ),
+              SfCartesianChart(
                 // Initialize category axis
-                title: ChartTitle(text: "Voltage",textStyle: TextStyle(color: Colors.white)),
-                primaryXAxis: CategoryAxis(),
-                series: [
-                  LineSeries<VoltageData, String>(
-                    // Bind data source
-                      dataSource:  <VoltageData>[
-                        VoltageData('Jan', 35),
-                        VoltageData('Feb', 28),
-                        VoltageData('Mar', 34),
-                        VoltageData('Apr', 32),
-                        VoltageData('May', 40),
-                        VoltageData('jun', 38)
+                  primaryXAxis: CategoryAxis(),
+                  title: ChartTitle(text: "Resistance",textStyle: TextStyle(color: Colors.white)),
+                  series: [
+                    ColumnSeries<VoltageData, String>(
+                      // Bind data source
+                        dataSource:  <VoltageData>[
+                          VoltageData('Jan', 35),
+                          VoltageData('Feb', 28),
+                          VoltageData('Mar', 34),
+                          VoltageData('Apr', 32),
+                          VoltageData('May', 40),
+                          VoltageData('jun', 38)
 
-                      ],
-                      xValueMapper: (VoltageData volt, _) => volt.year,
-                      yValueMapper: (VoltageData volts, _) => volts.volts,
-                    color: Colors.white
-                  ),
-                ]
-            ),
-            SfCartesianChart(
-              // Initialize category axis
-                primaryXAxis: CategoryAxis(),
-                title: ChartTitle(text: "Resistance",textStyle: TextStyle(color: Colors.white)),
-                series: [
-                  ColumnSeries<VoltageData, String>(
-                    // Bind data source
-                      dataSource:  <VoltageData>[
-                        VoltageData('Jan', 35),
-                        VoltageData('Feb', 28),
-                        VoltageData('Mar', 34),
-                        VoltageData('Apr', 32),
-                        VoltageData('May', 40),
-                        VoltageData('jun', 38)
-
-                      ],
-                      xValueMapper: (VoltageData volt, _) => volt.year,
-                      yValueMapper: (VoltageData volts, _) => volts.volts,
-                    color: Colors.white,
-                  ),
-                ],
-            ),
-          ],
+                        ],
+                        xValueMapper: (VoltageData volt, _) => volt.year,
+                        yValueMapper: (VoltageData volts, _) => volts.volts,
+                      color: Colors.white,
+                    ),
+                  ],
+              ),
+            ],
+          ),
         ),
       ),
     );
