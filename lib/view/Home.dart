@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  bool isAdmin = false;
+  bool isAdmin = true;
   int _index=0;
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
         backgroundColor: CustomColors.appBarColor,
         elevation: 5,
         shadowColor: Colors.black54,
-        title:  _index==0?const Text("Home"):_index==1?const Text("Devices"):const Text("Reports"),
+        title:  _index==0?const Text("Home"):_index==1?const Text("Systems"):const Text("Reports"),
       ),
       body:_index==0?userDashBoard(width):_index==1?DeviceList():null,
       bottomNavigationBar: BottomNavigationBar(
@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              label: "Devices",
+              label: "Systems",
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.report),
