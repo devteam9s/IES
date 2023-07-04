@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ies_flutter_application/res/colors.dart';
 import 'package:ies_flutter_application/view/sensor_details.dart';
+import 'package:ies_flutter_application/view/sensor_list.dart';
 
-import '../res/colors.dart';
-
-class SensorList extends StatefulWidget{
-  final int? index;
-  final isAdmin;
-  const SensorList({super.key,this.index,required this.isAdmin});
+class SystemList extends StatefulWidget {
+  final bool isAdmin;
+  final int index;
+  const SystemList({Key? key,required this.isAdmin,required this.index}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return SensorListState();
-  }
+  State<SystemList> createState() => _SystemListState();
 }
 
-class SensorListState extends State<SensorList>{
+class _SystemListState extends State<SystemList> {
 
+  List systems = ["System-1","System-2","System-3","System-4","System-5","System-6","System-7","System-8"];
   List sensor = ["Sensor-1","Sensor-2","Sensor-3","Sensor-4","Sensor-5","Sensor-6","Sensor-7","Sensor-8"];
 
   String? _systemTag;
@@ -27,32 +26,30 @@ class SensorListState extends State<SensorList>{
   List sensorTag = ["tag-1","tag-2","tag-3","tag-4","tag-5","tag-6",];
   List isActive = ["True","False"];
 
+
   @override
   Widget build(BuildContext context) {
-    final width= MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: CustomColors.appThemeColor,
-      appBar: AppBar(
+      appBar: widget.isAdmin&&widget.index==1?AppBar(
         backgroundColor: CustomColors.appBarColor,
         elevation: 5,
         shadowColor: Colors.black54,
-        title:Text("System-${widget.index}"),
+        title:Text("Systems"),
         centerTitle: true,
         actions: [
-          widget.isAdmin?IconButton(
+          IconButton(
               onPressed: () {
-                addSensor(width);
+                addSystems(width);
               },
-              icon: const Icon(Icons.add)):SizedBox(),
-          SizedBox(width: 15,)
+              icon: const Icon(Icons.add)),
+          SizedBox(width: width * 0.02),
         ],
-        bottom: PreferredSize(
-          preferredSize: const Size(double.infinity, 0),
-        child: Text("Connected Sensors",style: GoogleFonts.roboto(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400)),),
-      ),
+        ):null,
       body: ListView.builder(
         shrinkWrap: true,
-        itemCount: sensor.length,
+        itemCount: systems.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -60,11 +57,12 @@ class SensorListState extends State<SensorList>{
               children: [
                 ListTile(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder:(context) => SensorDetails(),));
+                    // sensorList(index);
+                    Navigator.push(context, MaterialPageRoute(builder:(context) => SensorList(index: index+1,isAdmin: widget.isAdmin),));
                   },
-                  leading: Icon(Icons.sensors,color: Colors.greenAccent[200],size: 25),
+                  leading: Icon(Icons.settings,color: Colors.greenAccent[200],size: 25),
                   trailing: const Icon(Icons.arrow_forward_ios_outlined,color: Colors.white54,size: 20),
-                  title: Text(sensor[index],style: GoogleFonts.roboto(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400),),
+                  title: Text(systems[index],style: GoogleFonts.roboto(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400),),
                 ),
                 const Divider(color: Colors.white,indent: 10,endIndent: 10,thickness: 1,),
               ],
@@ -75,7 +73,7 @@ class SensorListState extends State<SensorList>{
     );
   }
 
-  void addSensor(width) {
+  void addSystems(width) {
     showDialog(
       context: context,
       barrierColor: Colors.black87,
@@ -84,7 +82,7 @@ class SensorListState extends State<SensorList>{
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20))),
           backgroundColor: CustomColors.cardColor,
-          title: Text("Add Sensors",
+          title: Text("Add System",
               textAlign: TextAlign.center,
               style: GoogleFonts.roboto(
                 color: Colors.white,

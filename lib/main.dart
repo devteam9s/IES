@@ -13,8 +13,8 @@ class IesApp extends StatelessWidget{
       debugShowCheckedModeBanner: false,
       title: "IES",
       home:
-      // Home()
-      SplashScreen(),
+      Home()
+      // SplashScreen(),
     );
   }
 }
