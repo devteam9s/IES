@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ies_flutter_application/res/colors.dart';
 import 'package:ies_flutter_application/res/components/auth_button.dart';
 import 'package:ies_flutter_application/view/Home.dart';
+import 'package:ies_flutter_application/view/forgot_password.dart';
 
 import '../utils/utils.dart';
 
@@ -135,7 +136,12 @@ class _LoginState extends State<Login> {
               Container(
                   margin: const EdgeInsets.only(left: 25,right: 25),
                   alignment: Alignment.centerRight,
-                  child: TextButton(onPressed:(){}, child:const Text("Forgot password?",style: TextStyle(fontSize: 17),))),
+                  child: TextButton(onPressed:(){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ForgotPassword()),
+                    );
+                  }, child:const Text("Forgot password?",style: TextStyle(fontSize: 17),))),
               const SizedBox(height: 15,),
               AuthButton(title: 'LOG IN', onPress: () {
                 if(_logInKey.currentState!.validate()){

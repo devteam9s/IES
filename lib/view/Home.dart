@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ies_flutter_application/view/device_list.dart';
+import 'package:ies_flutter_application/view/reports.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 import '../res/colors.dart';
@@ -45,7 +46,7 @@ class _HomeState extends State<Home> {
         shadowColor: Colors.black54,
         title:  _index==0?const Text("Home"):_index==1?const Text("Devices"):const Text("Reports"),
       ),
-      body:_index==0?userDashBoard(width):_index==1?DeviceList():null,
+      body:_index==0?userDashBoard(width):_index==1?DeviceList():Reports(),
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.white70,
         selectedItemColor: Colors.white,
