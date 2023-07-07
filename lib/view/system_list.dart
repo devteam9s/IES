@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ies_flutter_application/models/customer_systems.dart';
+import 'package:ies_flutter_application/providers/systems_provider.dart';
 import 'package:ies_flutter_application/res/colors.dart';
 import 'package:ies_flutter_application/view/sensor_details.dart';
 import 'package:ies_flutter_application/view/sensor_list.dart';
+import 'package:provider/provider.dart';
 
 class SystemList extends StatefulWidget {
   final bool isAdmin;
@@ -15,6 +18,8 @@ class SystemList extends StatefulWidget {
 
 class _SystemListState extends State<SystemList> {
 
+
+
   List systems = ["System-1","System-2","System-3","System-4","System-5","System-6","System-7","System-8"];
   List sensor = ["Sensor-1","Sensor-2","Sensor-3","Sensor-4","Sensor-5","Sensor-6","Sensor-7","Sensor-8"];
 
@@ -25,6 +30,15 @@ class _SystemListState extends State<SystemList> {
   List systemTag = ["tag-1","tag-2","tag-3","tag-4","tag-5","tag-6",];
   List sensorTag = ["tag-1","tag-2","tag-3","tag-4","tag-5","tag-6",];
   List isActive = ["True","False"];
+
+
+  @override
+  void initState() {
+    super.initState();
+    var body ={"customer_id":"5bae2421-8ea9-485a-871e-06ee7ca8ff9b"};
+    final postMdl = Provider.of<SystemsProvider>(context, listen: false);
+    postMdl.getSystemsBasedOnId(body);
+  }
 
 
   @override
@@ -47,28 +61,35 @@ class _SystemListState extends State<SystemList> {
           SizedBox(width: width * 0.02),
         ],
         ):null,
-      body: ListView.builder(
-        shrinkWrap: true,
-        itemCount: systems.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              children: [
-                ListTile(
-                  onTap: (){
-                    // sensorList(index);
-                    Navigator.push(context, MaterialPageRoute(builder:(context) => SensorList(index: index+1,isAdmin: widget.isAdmin),));
-                  },
-                  leading: Icon(Icons.settings,color: Colors.greenAccent[200],size: 25),
-                  trailing: const Icon(Icons.arrow_forward_ios_outlined,color: Colors.white54,size: 20),
-                  title: Text(systems[index],style: GoogleFonts.roboto(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400),),
+      body: Consumer<SystemsProvider>(
+        builder: (context,snap,child){
+
+          return snap.isLoading?Center(child: Text("Loading")):snap.isLoading==false&&snap.isNoData?Center(child: Text("No Data Found")):snap.isLoading==false&&snap.isError?Center(child: Text("Something went wrong")):ListView.builder(
+            shrinkWrap: true,
+            itemCount: snap.systems?.data?.system?.length,
+            itemBuilder: (context, index) {
+              System item=snap.systems!.data!.system![index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  children: [
+                    ListTile(
+                      onTap: (){
+                        // sensorList(index);
+                        Navigator.push(context, MaterialPageRoute(builder:(context) => SensorList(index: index+1,isAdmin: widget.isAdmin),));
+                      },
+                      leading: Icon(Icons.settings,color: Colors.greenAccent[200],size: 25),
+                      trailing: const Icon(Icons.arrow_forward_ios_outlined,color: Colors.white54,size: 20),
+                      title: Text(item.systemTag.toString(),style: GoogleFonts.roboto(color: Colors.white,fontSize: 20,fontWeight: FontWeight.w400),),
+                    ),
+                    const Divider(color: Colors.white,indent: 10,endIndent: 10,thickness: 1,),
+                  ],
                 ),
-                const Divider(color: Colors.white,indent: 10,endIndent: 10,thickness: 1,),
-              ],
-            ),
+              );
+            },
           );
         },
+
       ),
     );
   }

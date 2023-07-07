@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ies_flutter_application/view/reports.dart';
 import 'package:ies_flutter_application/view/system_list.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
@@ -105,7 +106,7 @@ class _HomeState extends State<Home> {
                 ? const Text("Home")
                 : _index == 1
                     ? const Text("Systems")
-                    : const Text("Reports")),
+                    : const Text("Generate Reports")),
       ),
       body: isAdmin
           ? (_index == 0
@@ -126,7 +127,7 @@ class _HomeState extends State<Home> {
                       isAdmin: isAdmin,
                       index: _index,
                     )
-                  : null),
+                  : Reports()),
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.white70,
         selectedItemColor: Colors.white,

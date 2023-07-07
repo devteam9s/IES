@@ -17,11 +17,6 @@ class _ReportsState extends State<Reports> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      appBar: AppBar(automaticallyImplyLeading: false,
-        title: Center(child: Text(
-          "Evaluate Performance", style: TextStyle(color: Colors.white),)),
-        backgroundColor: Colors.green,),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,7 +31,6 @@ class _ReportsState extends State<Reports> {
                   .size
                   .width * 0.7,
               child: fromDate()),
-          //CustomInputField(label: "From date", prefixIcon:Icons.arrow_drop_down_circle_outlined,controller: fromDateController,),
           SizedBox(height: 5,),
           Text("To date:"),
           SizedBox(height: 5,),
