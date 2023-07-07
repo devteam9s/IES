@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool isAdmin = false;
+  bool isAdmin = true;
   int _index = 0;
   String? _systemTag;
   String? _sensorTag;
