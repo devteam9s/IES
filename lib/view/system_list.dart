@@ -10,7 +10,8 @@ import 'package:provider/provider.dart';
 class SystemList extends StatefulWidget {
   final bool isAdmin;
   final int index;
-  const SystemList({Key? key,required this.isAdmin,required this.index}) : super(key: key);
+  final int? customerID;
+  const SystemList({Key? key,required this.isAdmin,required this.index,this.customerID}) : super(key: key);
 
   @override
   State<SystemList> createState() => _SystemListState();
@@ -25,11 +26,13 @@ class _SystemListState extends State<SystemList> {
 
   String? _systemTag;
   String? _sensorTag;
+  late bool _value=false;
 
 
   List systemTag = ["tag-1","tag-2","tag-3","tag-4","tag-5","tag-6",];
   List sensorTag = ["tag-1","tag-2","tag-3","tag-4","tag-5","tag-6",];
   List isActive = ["True","False"];
+
 
 
   @override
@@ -103,18 +106,29 @@ class _SystemListState extends State<SystemList> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20))),
           backgroundColor: CustomColors.cardColor,
-          title: Text("Add System",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                color: Colors.white,
-                fontSize: 25,
-              )),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(width: width*0.1,),
+              Text("Add System",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.roboto(
+                    color: Colors.white,
+                    fontSize: 25,
+                  )),
+              SizedBox(width: width*0.03,),
+              IconButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  }, icon:const Icon(Icons.close,color: Colors.white,))
+            ],
+          ),
           content: SizedBox(
             width: double.maxFinite,
             height: width ,
             child: Column(
               children: [
-                TextFormField(
+                widget.customerID==null?TextFormField(
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide:
@@ -126,7 +140,7 @@ class _SystemListState extends State<SystemList> {
                         color: Colors.white,
                         fontSize: 17,
                       ),
-                      hintText: 'Enter Customer ID',
+                      hintText: 'Customer ID',
                       hintStyle: GoogleFonts.roboto(
                         color: Colors.white,
                         fontSize: 17,
@@ -141,7 +155,7 @@ class _SystemListState extends State<SystemList> {
                     color: Colors.white,
                     fontSize: 17,
                   ),
-                ),
+                ):const SizedBox(width: 0,height: 0,),
                 Container(
                   margin: EdgeInsets.only(top: width*0.03),
                   decoration: BoxDecoration(
@@ -216,42 +230,44 @@ class _SystemListState extends State<SystemList> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: width*0.03),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.0),
-                    border: Border.all(
-                        color: Colors.white, style: BorderStyle.solid, width: width*0.009),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DropdownButton(
-                      underline: const SizedBox(),
-                      style: GoogleFonts.roboto(
-                        color: Colors.white,
-                        fontSize: 17,
+                StatefulBuilder(
+                  builder: (context,setState) {
+                    return Container(
+                      margin: EdgeInsets.only(top: width*0.03),
+                      height: width*0.155,
+                      width: width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        border: Border.all(
+                            color: Colors.white, style: BorderStyle.solid, width: width*0.009),
                       ),
-                      dropdownColor: CustomColors.appThemeColor,
-                      isExpanded: true,
-                      hint:Text("Is Active?",style: GoogleFonts.roboto(
-                          fontSize: 17,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400)),
-                      value: _sensorTag,
-                      items:isActive.map((e) {
-                        return DropdownMenuItem<String>(
-                            value: e,
-                            child: Text(e)
-                        );
-                      }
-                      ).toList() ,
-                      onChanged: (value){
-                        setState(() {
-
-                        });
-                      },
-                    ),
-                  ),
+                      child: Row(
+                        children: [
+                          SizedBox(width: width*0.02,),
+                          Text("Is Active?",style: GoogleFonts.roboto(
+                              fontSize: 17,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400)),
+                        SizedBox(width: width*0.26,),
+                        Text(_value==false?"No":"Yes",style: TextStyle(color:_value==false?Colors.red:Colors.green ),),
+                          Switch(
+                            inactiveThumbColor: Colors.red,
+                              inactiveTrackColor: Colors.white,
+                              activeColor: Colors.green,
+                              activeTrackColor: Colors.white,
+                              value: _value,
+                              onChanged: (result){
+                            setState(() {
+                              _value=result;
+                              debugPrint(_value.toString());
+                            });
+                          },
+                            autofocus: true,
+                          )
+                        ],
+                      )
+                    );
+                  }
                 ),
                 Container(
                     height: width*0.15,
