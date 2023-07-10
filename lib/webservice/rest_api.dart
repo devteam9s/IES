@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:ies_flutter_application/models/customer_systems.dart';
 import 'package:ies_flutter_application/utils/constant.dart';
@@ -13,13 +14,15 @@ class RestApi{
       'Accept': 'application/json',
       'apikey':'${Constants.apiKey}',
       'Authorization': 'Bearer ${Constants.bearerToken}',
-    },body: body);
+    },body: json.encode(body)).catchError((onError){
+      debugPrint("Error is "+onError.toString());
+    });
 
     if (response.statusCode == 200) {
       return CustomerSystems.fromJson(jsonDecode(response.body)) ;
     } else {
 
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load data');
     }
 
   }
