@@ -34,7 +34,6 @@ class _SystemListState extends State<SystemList> {
   List isActive = ["True","False"];
 
 
-
   @override
   void initState() {
     super.initState();
@@ -66,7 +65,6 @@ class _SystemListState extends State<SystemList> {
         ):null,
       body: Consumer<SystemsProvider>(
         builder: (context,snap,child){
-
           return snap.isLoading?Center(child: Text("Loading")):snap.isLoading==false&&snap.isNoData?Center(child: Text("No Data Found")):snap.isLoading==false&&snap.isError?Center(child: Text("Something went wrong")):ListView.builder(
             shrinkWrap: true,
             itemCount: snap.systems?.data?.system?.length,
@@ -78,7 +76,6 @@ class _SystemListState extends State<SystemList> {
                   children: [
                     ListTile(
                       onTap: (){
-                        // sensorList(index);
                         Navigator.push(context, MaterialPageRoute(builder:(context) => SensorList(index: index+1,isAdmin: widget.isAdmin),));
                       },
                       leading: Icon(Icons.settings,color: Colors.greenAccent[200],size: 25),

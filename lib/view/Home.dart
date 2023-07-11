@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool isAdmin = true;
+  bool isAdmin = false;
   int _index = 0;
   String? _systemTag;
   String? _sensorTag;
@@ -24,8 +24,6 @@ class _HomeState extends State<Home> {
   List systemTag = ["tag-1","tag-2","tag-3","tag-4","tag-5","tag-6",];
   List sensorTag = ["tag-1","tag-2","tag-3","tag-4","tag-5","tag-6",];
   List isActive = ["True","False"];
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +64,6 @@ class _HomeState extends State<Home> {
           const SizedBox(
             width: 11,
           ),
-          InkWell(
-              onTap: () {},
-              child: const Icon(
-                Icons.help_outline,
-              )),
           isAdmin && _index == 1
               ? IconButton(
                   onPressed: () {

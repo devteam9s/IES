@@ -10,10 +10,10 @@ class SystemsProvider extends ChangeNotifier{
   bool isNoData=false;
   bool isError=false;
 
+
   getSystemsBasedOnId(var body){
     RestApi.getSystemsBasedOnUserId(body).then((value) {
       isLoading=false;
-
       if(value!=null){
         if(value.data!.system!.isEmpty){
           isNoData=true;
@@ -25,12 +25,11 @@ class SystemsProvider extends ChangeNotifier{
         isNoData=true;
         notifyListeners();
       }
-
     }).catchError((onError){
       isLoading=false;
       isError=true;
       notifyListeners();
     });
-
   }
+
 }
