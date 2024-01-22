@@ -41,6 +41,20 @@ dependencies:
   google_fonts: ^5.0.0
   syncfusion_flutter_gauges: ^21.2.10
   syncfusion_flutter_charts: ^21.2.10
+  shared_preferences: ^2.2.0
+  firebase_core: ^2.15.0
+  firebase_auth: ^4.7.2
+  mqtt_client: ^10.0.0
+  fl_chart: ^0.63.0
+  firebase_messaging: ^14.6.7
+  app_settings: ^5.0.0
+  flutter_local_notifications: ^15.1.1
+  firebase_app_check: ^0.1.5+2
+  expansion_tile_card: ^3.0.0
+  stack_trace: ^1.11.0
+  flutter_launcher_icons: ^0.13.1
+  shimmer: ^3.0.0
+  simple_gradient_text: ^1.2.4
 
 dev_dependencies:
   flutter_test:
@@ -62,8 +76,19 @@ flutter:
   assets:
     - assets/login.png
     - assets/Soukhya_logo.png
+    - assets/ies_louncher_image.png
     - assets/temp_splash_logo.jpg
+    - assets/ohm.png
+    - assets/ampere.png
+    - assets/volts.png
+    - assets/earth_pit.png
 
+
+flutter_launcher_icons:
+  image_path: "assets/ies_louncher_image.png"
+  adaptive_icon_background: "#FFFFFF"
+  android: true
+  ios: true
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

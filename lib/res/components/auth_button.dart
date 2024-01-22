@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 class AuthButton extends StatelessWidget {
-  String title;
+  final String title;
   final bool loading;
-  VoidCallback onPress;
+  final VoidCallback onPress;
 
-  AuthButton({Key? key,required this.title,this.loading=false,required this.onPress}) : super(key: key);
+  const AuthButton({Key? key,required this.title,this.loading=false,required this.onPress}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,9 @@ class AuthButton extends StatelessWidget {
             color:title=="LOG IN"?Colors.white:Color(0xff6610f2),
           borderRadius: BorderRadius.circular(20)
         ),
-        child: loading?CircularProgressIndicator(color: Colors.black,)
+        child: loading?Container(
+          padding: EdgeInsets.only(left: 150,right: 150),
+            child: const CircularProgressIndicator(color: Colors.white))
             :Center(child: Text(title,style: TextStyle(
             color:title=="LOG IN"?Colors.black:Colors.white,fontSize: 23),)),
       ),

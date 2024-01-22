@@ -12,7 +12,13 @@ class NetworkApiServices extends BaseApiServices {
   Future getGetApiResponse(String url) async {
     dynamic responseJson;
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(url),
+        headers:{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'apikey': Constants.apiKey,
+      'Authorization': 'Bearer ${Constants.bearerToken}',
+      },);
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException("No Internet Connection");
@@ -43,7 +49,7 @@ class NetworkApiServices extends BaseApiServices {
     switch (response.statusCode) {
       case 200:
         dynamic responseJson = jsonDecode(response.body);
-        return response;
+        return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());
       case 500:

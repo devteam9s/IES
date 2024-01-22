@@ -24,9 +24,10 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
     animation=CurvedAnimation(parent: animationController, curve: Curves.easeIn);
     animationController.forward();
 
-    splashServices.isLogin(context);
+    splashServices.redirectAfter(context);
 
     super.initState();
+
   }
 
   @override
@@ -43,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
               child:Container(
                 height: 200,
                   width: 200,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(200))
                   ),
@@ -51,21 +52,8 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
                     padding: const EdgeInsets.all(10.0),
                     child: Image.asset("assets/Soukhya_logo.png"),
                   )),
-
-              // CircleAvatar(
-              //   backgroundImage: AssetImage("assets/temp_splash_logo.jpg"),
-              //   radius: 125,
-              // ),
             ),
           ),
-          // const SizedBox(height: 15),
-          // TweenAnimationBuilder(
-          //     tween: Tween<double>(begin: 1,end: 25),
-          //     duration: Duration(seconds: 2),
-          //     builder:(context,double value, child) {
-          //       return Text("IES ",style: GoogleFonts.roboto(fontSize: 20, color: Colors.white,fontWeight:FontWeight.w400),);
-          //     },
-          // )
         ],
       )
       );

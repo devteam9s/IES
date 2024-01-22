@@ -42,18 +42,21 @@ class Data {
 class System {
   String? id;
   String? systemTag;
+  String? operatorId;
 
-  System({this.id, this.systemTag});
+  System({this.id, this.systemTag, this.operatorId});
 
   System.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     systemTag = json['system_tag'];
+    operatorId = json['operator_id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['system_tag'] = this.systemTag;
+    data['operator_id'] = this.operatorId;
     return data;
   }
 }
