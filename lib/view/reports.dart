@@ -451,12 +451,20 @@ class _ReportsState extends State<Reports> {
 
   Future callGetMethod(String id) async {
 
+    // var body = {
+    //   "sensor_id_param": id,
+    //   "from_date_param": fDate,
+    //   "to_date_param": tDate,
+    //   "from_time_param": fTime,
+    //   "to_time_param": "18:00:00"
+    // };
+
     var body = {
-      "sensor_id_param": id,
-      "from_date_param": fDate,
-      "to_date_param": tDate,
-      "from_time_param": fTime,
-      "to_time_param": tTime
+      "sensor_id_param": "d3b54fa9-d855-4c26-a740-91c564ce41ff",
+      "from_date_param": "2023-12-2",
+      "to_date_param": "2023-12-31",
+      "from_time_param": "09:00:00",
+      "to_time_param": "18:00:00"
     };
 
     await reportsProvider.getListOfSenesorData(body);

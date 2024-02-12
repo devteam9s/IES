@@ -8,7 +8,9 @@ class Constants{
 
 class ApiEndPoints{
 
-//
+//real ip: 13.51.198.7:8000
+
+//test ip 13.127.224.146:8000
 
   static String BaseUrl="http://13.51.198.7:8000";
   static String login="$BaseUrl/rest/v1/rpc/loginfunc";
@@ -31,7 +33,6 @@ class ApiEndPoints{
   static String getNotificationFlag = "$BaseUrl/rest/v1/rpc/get_flag_status_for_operator";
   static String getPitStatus = "$BaseUrl/rest/v1/rpc/get_pits";
   static String getMqttRestApiData = "$BaseUrl/rest/v1/rpc/get_new_server_data";
-
 
 
 }

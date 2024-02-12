@@ -24,7 +24,7 @@ class SensorReportModel {
 class Records {
   String? id;
   String? topic;
-  double? payload;
+  dynamic payload;
   String? dateTime;
   String? time;
   String? sensorId;

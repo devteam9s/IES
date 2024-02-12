@@ -125,7 +125,8 @@ class RestApi{
       dynamic response = await _apiServices.getPostApiResponse(ApiEndPoints.getReportGenerated, data);
       return SensorReportModel.fromJson(response);
 
-    }catch(e){
+    }catch(e,stacktrace){
+      debugPrint(stacktrace.toString());
       rethrow;
     }
   }

@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../res/components/add_systems.dart';
 import '../view_model/add_system_and_sensors.dart';
+import 'Home.dart';
 
 class SystemList extends StatefulWidget {
   final bool isAdmin;
@@ -42,13 +43,13 @@ class _SystemListState extends State<SystemList> {
   @override
   void initState() {
     debugPrint("Inside init state...");
-    debugPrint("Customer id ${widget.operatorID}");
+    debugPrint("Customer id : ${Home.customerId}");
 
     super.initState();
     postMdl = Provider.of<SystemsProvider>(context, listen: false);
     addSym = Provider.of<AddSensorsAndSystems>(context,listen: false);
-    body ={"customer_id_param":widget.operatorID};
-debugPrint(body.toString());
+    body ={"customer_id_param":Home.customerId};
+    debugPrint(body.toString());
     postMdl?.getSystemsBasedOnId(body);
 
   }

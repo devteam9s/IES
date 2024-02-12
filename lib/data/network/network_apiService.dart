@@ -18,7 +18,8 @@ class NetworkApiServices extends BaseApiServices {
       'Accept': 'application/json',
       'apikey': Constants.apiKey,
       'Authorization': 'Bearer ${Constants.bearerToken}',
-      },);
+      },
+      );
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException("No Internet Connection");

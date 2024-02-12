@@ -308,8 +308,7 @@ class SensorListState extends State<SensorList>{
                     color: value.pData==null&&value.pData?.latestValues==null&&
                     value.pData?.latestValues!.r == null
                         ? Colors.white
-                        : double.parse(value.pData!.latestValues!.r
-                        .toString()) <=
+                        : double.parse(value.pData!.latestValues!.r != null ? value.pData!.latestValues!.r.toString() : "0.0" ) <=
                         2
                         ? Colors.green
                         : double.parse(value.pData!.latestValues!.r
@@ -416,8 +415,8 @@ class SensorListState extends State<SensorList>{
                     color: value.pData==null&&value.pData?.latestValues==null&&
                         value.pData?.latestValues!.r == null
                         ? Colors.white
-                        : double.parse(value.pData!.latestValues!.c
-                        .toString()) <=
+                        : double.parse(value.pData!.latestValues!.c != null ? value.pData!.latestValues!.c
+                        .toString() :"0.0") <=
                         2
                         ? Colors.green
                         : double.parse(value.pData!.latestValues!.c
